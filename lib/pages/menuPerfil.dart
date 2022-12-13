@@ -31,7 +31,7 @@ class _MenuPerfil extends State<MenuPerfil> {
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 50.0,
         ),
         TextButton(

@@ -1,8 +1,8 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:noticias/pages/menuPerfil.dart';
-import 'package:noticias/pages/welcome.dart';
+// ignore: depend_on_referenced_packages
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BottomNav extends StatelessWidget {
@@ -11,6 +11,7 @@ class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      elevation: 0,
       color: Colors.transparent,
       child: Row(
         children: [

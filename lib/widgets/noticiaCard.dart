@@ -39,7 +39,7 @@ class NoticiaCard extends StatelessWidget {
               child: Image.network(
                 image == 'null'
                     ? 'https://i.ibb.co/d6xGbW2/sin-imagen.jpg'
-                    : '${image}',
+                    : '$image',
                 width: 80,
                 height: 80,
               ),
@@ -53,7 +53,7 @@ class NoticiaCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    '${title}',
+                    '$title',
                     style: const TextStyle(
                       fontSize: 16,
                     ),
@@ -62,7 +62,7 @@ class NoticiaCard extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    '${body}',
+                    '$body',
                     maxLines: 3,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
@@ -76,7 +76,7 @@ class NoticiaCard extends StatelessWidget {
                       const SizedBox(
                         width: 80,
                       ),
-                      Text('Subido: ${dia}-${mes}-${ano}'),
+                      Text('Subido: $dia-$mes-$ano'),
                     ],
                   )
                 ],

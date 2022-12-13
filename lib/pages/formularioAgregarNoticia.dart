@@ -22,7 +22,7 @@ class FormularioAgregarNoticia extends StatefulWidget {
         builder: (context) {
           return BlocProvider<IngresarNoticiaCubit>(
             create: (_) => IngresarNoticiaCubit(),
-            child: FormularioAgregarNoticia(),
+            child: const FormularioAgregarNoticia(),
           );
         });
   }
@@ -39,17 +39,17 @@ class _FormularioAgregarNoticiaState extends State<FormularioAgregarNoticia> {
   String? body;
   String? baseImage;
   File? _image;
-  List<File>? _images = null;
+  List<File>? _images;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<IngresarNoticiaCubit, IngresarNoticiaState>(
       listener: (context, state) {
-        // TODO: implement listener
         if (state.status == IngresarNoticiasListStatus.success) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Se ha ingresado la noticia con exito')),
+            const SnackBar(
+                content: Text('Se ha ingresado la noticia con exito')),
           );
         } else if (state.status == IngresarNoticiasListStatus.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -67,17 +67,19 @@ class _FormularioAgregarNoticiaState extends State<FormularioAgregarNoticia> {
             return Column(
               children: [
                 const TopNavPerfil(),
-                const TextoPrincipal(),
+                const TextoPrincipal(
+                  textoPrincipal: 'Agregar Noticia',
+                ),
                 inputs(),
                 TextButton(
-                  child: Text("Seleccione una foto desde la galeria"),
+                  child: const Text("Seleccione una foto desde la galeria"),
                   onPressed: () {
                     pickImage();
                   },
                 ),
                 Container(
                   child: _image == null
-                      ? Text('No has seleccionado imagenes.')
+                      ? const Text('No has seleccionado imagenes.')
                       : Image.file(
                           _image!,
                           width: 100,
@@ -85,12 +87,12 @@ class _FormularioAgregarNoticiaState extends State<FormularioAgregarNoticia> {
                         ),
                 ),
                 TextButton(
-                  child: Text("Seleccione varias fotos desde la galeria"),
+                  child: const Text("Seleccione varias fotos desde la galeria"),
                   onPressed: () {
                     multiplePickImage();
                   },
                 ),
-                Container(
+                SizedBox(
                   height: 100,
                   child: _images == null
                       ? const Text('No has seleccionado imagenes.')
@@ -147,10 +149,9 @@ class _FormularioAgregarNoticiaState extends State<FormularioAgregarNoticia> {
       });
       final bytes = await image.readAsBytes();
       final image64 = base64Encode(bytes);
-      print(image64);
       setState(() => baseImage = image64);
     } on PlatformException catch (e) {
-      print('Fallo al seleccionar la imagen: ${e}');
+      print('Fallo al seleccionar la imagen: $e');
     }
   }
 
@@ -171,9 +172,8 @@ class _FormularioAgregarNoticiaState extends State<FormularioAgregarNoticia> {
       }
       // image to base 64
     } on PlatformException catch (e) {
-      print('Fallo al seleccionar la imagen: ${e}');
+      print('Fallo al seleccionar la imagen: $e');
     }
-    ;
   }
 }
 

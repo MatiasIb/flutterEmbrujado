@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:noticias/cubit/noticias_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:noticias/data/traerUnaNoticia.dart';
 import 'package:noticias/widgets/mostrarUnaNoticia/TopNavUnaNoticia.dart';
+import 'package:noticias/widgets/mostrarUnaNoticia/alertDialog.dart';
 import 'package:noticias/widgets/mostrarUnaNoticia/contenidoMostrarUnaNoticia.dart';
 
 class MostrarUnaNoticiaArgs {
@@ -42,9 +42,6 @@ class _MostrarUnaNoticiaState extends State<MostrarUnaNoticia> {
         listener: (context, state) {
           // TODO: implement listener
           if (state.status == NoticiasListStatus.success) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Se ha Mostrado con exito')),
-            );
           } else if (state.status == NoticiasListStatus.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Error del servidor.')),
@@ -60,15 +57,20 @@ class _MostrarUnaNoticiaState extends State<MostrarUnaNoticia> {
             default:
               return Column(
                 children: [
-                  const TopNavUnaNoticia(),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.noticia?.length,
-                      itemBuilder: (context, index) => Column(
-                            children: [
-                              ContenidoMostrarUnaNoticia(),
-                            ],
-                          ))
+                  TopNavUnaNoticia(
+                    id: state.noticiaDetail?.id,
+                    noticia: state.noticiaDetail,
+                  ),
+                  Expanded(
+                    child: ListView(children: [
+                      ContenidoMostrarUnaNoticia(
+                        mainImage: state.noticiaDetail?.mainImage,
+                        title: state.noticiaDetail?.title,
+                        body: state.noticiaDetail?.body,
+                        images: state.noticiaDetail?.images,
+                      )
+                    ]),
+                  ),
                 ],
               );
           }
@@ -77,3 +79,12 @@ class _MostrarUnaNoticiaState extends State<MostrarUnaNoticia> {
     );
   }
 }
+
+
+/* Column(children: [
+                      Text('${state.noticiaDetail?.title}'),
+                      Text('${state.noticiaDetail?.body}'),
+                      ...state.noticiaDetail!.images.map((item) {
+                        return Text('${item.image}');
+                      }),
+                    ]), */

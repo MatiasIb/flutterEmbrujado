@@ -1,9 +1,8 @@
-// ignore: depend_on_referenced_packages
 import 'package:http/http.dart';
 import 'dart:convert';
 
-class AgregarNoticia {
-  Future<Response> ingresarNoticia(title, body, imagen, listImagen) async {
+class EditarNoticia {
+  Future<Response> editarNoticia(id, title, body, imagen, listImagen) async {
     final List<Map> list = [];
     for (var i = 0; i < listImagen.length; i++) {
       list.add({"image": listImagen[i]});
@@ -15,7 +14,7 @@ class AgregarNoticia {
       'images': list
     };
     Response response =
-        await post(Uri.parse('http://10.15.15.64:8000/api/news/'),
+        await put(Uri.parse('http://10.15.15.64:8000/api/news/$id'),
             headers: <String, String>{
               'Content-Type': 'application/json',
             },

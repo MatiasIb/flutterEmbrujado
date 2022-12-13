@@ -6,7 +6,7 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 130,
       child: ListView(
           // This next line does the trick.
